@@ -25,7 +25,6 @@ import("core.base.hashset")
 import("core.base.json")
 import("core.project.project")
 import("core.package.package", {alias = "core_package"})
-import("core.sandbox.modules.try")
 import("devel.git")
 import("utils.archive")
 import("private.action.require.impl.utils.filter")
@@ -36,20 +35,18 @@ import("private.action.require.impl.environment")
 import("private.action.require.impl.utils.get_requires")
 
 -- from xmake/system/remote?
-
-    function _from(instance)
-        local fetchinfo = instance:fetch()
-        if fetchinfo then
-            if instance:is_system() then
-                return "system"
-            else
-                return "3rd"
-            end
+function _from(instance)
+    local fetchinfo = instance:fetch()
+    if fetchinfo then
+        if instance:is_system() then
+            return "system"
         else
-            return "missing"
+            return "3rd"
         end
+    else
+        return "missing"
     end
-
+end
 
 -- show the given package info
 
@@ -82,9 +79,9 @@ function main(requires_raw)
         end
 
         if (_from(instance) == "missing") then
-            wali_table[requireinfo.originstr]["installed"] = true
-        else
             wali_table[requireinfo.originstr]["installed"] = false
+        else
+            wali_table[requireinfo.originstr]["installed"] = true
         end
 
         wali_table[requireinfo.originstr]["info"] = {}

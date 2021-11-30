@@ -1,8 +1,8 @@
-add_requires("libxmake", "dpkg", "libpng")
+add_requires("cjson")
 target("wali-xmake")
     set_kind("binary")
-    add_files("xmake.c")
-    add_syslinks("pthread")
+    add_files("xmake.c", "utils.c")
+    add_packages("cjson")
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
 --
